@@ -109,7 +109,7 @@ reduce(PyObject *pair) {
   }
   Py_DECREF(iterator);
   Py_DECREF(values);
-  return Py_BuildValue("Ni", PySequence_GetItem(pair, 0), sum);
+  return Py_BuildValue("Nl", PySequence_GetItem(pair, 0), sum);
 }
 
 
