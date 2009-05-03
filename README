@@ -1,5 +1,4 @@
 To run this Dumbo program, do:
 
 $ python setup.py bdist_egg
-$ dumbo cipcount.py -hadoop /path/to/hadoop \
--input /path/to/input -output /path/to/output
+$ dumbo cipcount.py -hadoop /path/to/hadoop -input /path/to/input -output /path/to/output
