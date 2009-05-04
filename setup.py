@@ -1,6 +1,6 @@
 from setuptools import setup, Extension
 setup(name='cipcount',
-      version='0.1',
+      version='0.2',
       author='Klaas Bosteels',
       author_email='klaas@last.fm',
       license = 'Apache Software License (ASF)',
