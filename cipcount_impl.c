@@ -40,12 +40,12 @@ static PyObject *
 mapred_iternext(mapredobject *mro) {
   PyObject *pair, *ret;
   pair = PyIter_Next(mro->data);
-  if (pair == NULL) {
+  if (pair == NULL)
     return NULL;
-  } else {
-    ret = mro->func(pair);
-    Py_DECREF(pair);
-  }
+  ret = mro->func(pair);
+  Py_DECREF(pair);
+  if (ret == NULL)
+    ret = mapred_iternext(mro);
   return ret;
 }
 
@@ -86,11 +86,16 @@ static PyObject *
 map(PyObject *pair) {
   PyObject *val, *ret;
   char *valstr;
-  int len = 0;
+  int valsize, len = 0;
   val = PySequence_GetItem(pair, 1);
   valstr = PyString_AS_STRING(val);
+  valsize = PyString_GET_SIZE(val);
   while (valstr[len] != ' ' && valstr[len] != '\0') len++;
-  ret = Py_BuildValue("Ni", PyString_FromStringAndSize(valstr, len), 1);
+  if (len == valsize) {
+    ret = NULL;
+  } else {
+    ret = Py_BuildValue("Ni", PyString_FromStringAndSize(valstr, len), 1);
+  }
   Py_DECREF(val);
   return ret;
 }
